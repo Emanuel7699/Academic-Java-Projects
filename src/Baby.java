@@ -1,6 +1,9 @@
-/*"rock, paper and scissors" game.
-  The program receives one letter from each player
-  and brings a result according to the game "rock, paper and scissors" */
+/** public class Date extends Object.
+ * This class represents a Date object.
+ *
+ * @author Emanuel Abraham
+ * @version 27/11/2024 (2025a)
+ */
 
 public class Baby {
 

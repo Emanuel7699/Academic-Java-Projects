@@ -17,6 +17,7 @@ public class Date {
     private final int MAX_YEAR = 9999;
     private static final int THIS_year = 2024;
 
+
     /** Date constructor - If the given date is valid - creates a new Date object, otherwise creates the date 01/01/2024.
      *
      * @param day The day in the month (1-31).
@@ -67,11 +68,11 @@ public class Date {
 
     /** checks if the year is a leap year in order to set the maximum day of february.
      *
-     * @param year The year (4 digits).
+     * @param y The year (4 digits).
      * @return The maximum day of february.
      */
-    private int isLeapYear(int year) {
-        return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0) ? 29 : 28;
+    private int isLeapYear(int y) {
+        return (y % 4 == 0 && y % 100 != 0) || (y % 400 == 0) ? 29 : 28;
     }
 
     /** Gets the day.
@@ -98,28 +99,25 @@ public class Date {
         return _year;
     }
 
-    /** Sets the day (only if date remains valid).
-     *
-     * @param dayToSet The new day value.
-     */
+
     public void setDay(int dayToSet) {
-        _day = dayToSet;
+        if (dayToSet >= MIN_DAY && dayToSet <= maxDay(_month, _year)) {
+            _day = dayToSet;
+        }
     }
 
-    /** Sets the month (only if date remains valid).
-     *
-     * @param monthToSet The new month value.
-     */
+
     public void setMonth(int monthToSet) {
-        _month = monthToSet;
+        if (monthToSet >= MIN_MONTH && monthToSet <= MAX_MONTH && _day <= maxDay(monthToSet, _year)) {
+                _month = monthToSet;
+        }
     }
 
-    /** Sets the year (only if date remains valid).
-     *
-     * @param yearToSet The new year value.
-     */
+
     public void setYear(int yearToSet) {
-        _year = yearToSet;
+        if (yearToSet >= MIN_YEAR && yearToSet <= MAX_YEAR && _day <= maxDay(_month, yearToSet)){
+                _year = yearToSet;
+        }
     }
 
     /** Checks if two dates are the same
@@ -152,7 +150,7 @@ public class Date {
     /** Calculates the difference in days between two dates
      *
      * @param other The date to calculate the difference between.
-     * @return The number of days between the dates (non negative value).
+     * @return The number of days between the dates (non-negative value).
      */
     public int difference(Date other) {
         return Math.abs(calculateDate(_day, _month, _year) - calculateDate(other._day, other._month, other._year));
@@ -189,21 +187,19 @@ public class Date {
         return _day + "/" + _month + "/" + _year;
     }
 
-    /** Calculate the date of tomorrow
-     *
-     * @return The date of tomorrow.
-     */
+
     public Date tomorrow() {
+        int newDay = _day, newMonth = _month, newYear = _year;
         if (_day < maxDay(_day, _month)) {
-            _day += 1;
+            newDay += 1;
         } else if (_month < MAX_MONTH) {
-            _month += 1;
-            _day = MIN_DAY;
+            newMonth += 1;
+            newDay = MIN_DAY;
         } else {
-            _year += 1;
-            _month = MIN_MONTH;
-            _day = MIN_DAY;
+            newYear += 1;
+            newMonth = MIN_MONTH;
+            newDay = MIN_DAY;
         }
-        return this;
+        return new Date(newDay,newMonth, newYear);
     }
 }
