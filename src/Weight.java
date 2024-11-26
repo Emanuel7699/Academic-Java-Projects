@@ -1,21 +1,25 @@
+/*"rock, paper and scissors" game.
+  The program receives one letter from each player
+  and brings a result according to the game "rock, paper and scissors" */
+
 public class Weight {
     private int _kilos;
     private int _grams;
 
-    private final int MIN_kilos = 1;
-    private final int MIN_grams = 0;
-    private final int MAX_grams = 999;
+    private final int MIN_KILOS = 1;
+    private final int MIN_GRAMS = 0;
+    private final int MAX_GRAMS = 999;
 
 
     public Weight(int kilos, int grams){
-        if (kilos < MIN_kilos){
-            _kilos = MIN_kilos;
+        if (kilos < MIN_KILOS){
+            _kilos = MIN_KILOS;
         }
-        else{
+        else {
             _kilos = kilos;
         }
-        if (grams < MIN_grams){
-            _grams = MIN_grams;
+        if (grams < MIN_GRAMS){
+            _grams = MIN_GRAMS;
         }
         else{
             _grams = grams;
@@ -27,9 +31,9 @@ public class Weight {
     }
 
     public Weight(int totalGrams){
-        if(totalGrams%1000 < MIN_grams || totalGrams%1000 > MAX_grams){
-            _kilos = MIN_kilos;
-            _grams = MIN_grams;
+        if(totalGrams%1000 < MIN_GRAMS || totalGrams%1000 > MAX_GRAMS){
+            _kilos = MIN_KILOS;
+            _grams = MIN_GRAMS;
         }
         else{
             _kilos = totalGrams/1000;
@@ -68,38 +72,18 @@ public class Weight {
             return (_kilos + ".0" + _grams / 10);
         }
         else if ((_grams % 10 == 0) && (_grams / 100 == 0)) {
-            return (_kilos + "." + MIN_grams);
+            return (_kilos + "." + MIN_GRAMS);
         }
         return (_kilos + "." + _grams / 10);
     }
 
     public Weight add (int grams){
-        if(((_kilos*1000 + _grams + grams)/1000) > MIN_kilos){
+        if(((_kilos*1000 + _grams + grams)/1000) > MIN_KILOS){
             _kilos = ((_kilos*1000 + _grams + grams)/1000);
             _grams = ((_kilos*1000 + _grams + grams)%1000);
         }
         return this;
     }
-
-
-//        if(_grams%10 != 0) {
-//            if (_grams / 100 == 0) {
-//                if (_grams / 10 % 10 == 0) {
-//                    return (_kilos + ".00" + _grams);
-//                }
-//                return (_kilos + ".0" + _grams);
-//            }
-//        }
-//        else{
-//            if (_grams / 100 == 0) {
-//                if (_grams / 10 % 10 == 0) {
-//                    return (_kilos + "." + MIN_grams);
-//                }
-//                return (_kilos + ".0" + _grams/10);
-//            }
-//        }
-//        return (_kilos + "." + _grams/10);
-//    }
 }
 
 
