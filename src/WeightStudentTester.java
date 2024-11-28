@@ -8,7 +8,7 @@ public class WeightStudentTester
         System.out.println("\tw1:"+w1);
         Weight w2=new Weight(w1);
         System.out.println("\tw2:"+w2);
-        Weight w3=new Weight(4003);
+        Weight w3=new Weight(1000);
         System.out.println("\tw3:"+w3);
         System.out.println("\n2. Testing accessors :");
         System.out.println("\tw1:"+w1);
@@ -34,7 +34,7 @@ public class WeightStudentTester
             System.out.println("\tw3 isn't heavier than w1");
         System.out.println("\n6. Testing add method:");
         System.out.println("\tw1:"+w1);
-        System.out.println("\tAdding 500 grams to w1 returns the weight : "+w2.add(500));
+        System.out.println("\tAdding 500 grams to w1 returns the weight : "+w2.add(-2010));
         System.out.println("\n********** Test Weight - Finished **********\n");
 
     }

@@ -1,17 +1,17 @@
-public class DAteStudentTester
+public class DateStudentTester
 {
     public static void main(String[] args) {
         System.out.println("********** Test Date - Started **********");
         System.out.println("\n1. Testing Constructors and toString:");
-        Date d1=new Date(8,10,2025);
+        Date d1=new Date(3,5,1001);
         System.out.println("\td1:"+d1);
         Date d2=new Date();
         System.out.println("\td2:"+d2);
         Date d3=new Date(d1);
         System.out.println("\td3:"+d3);
         System.out.println("\n2. Testing accessors and mutators:");
-        d1.setDay(8);
-        d1.setMonth(10);
+        d1.setDay(29);
+        d1.setMonth(13);
         d1.setYear(2016);
         System.out.println("\td1:"+d1);
         System.out.println("\tday of d1:"+d1.getDay());
@@ -31,14 +31,14 @@ public class DAteStudentTester
         else
             System.out.println("\td3 isn't before d1");
         System.out.println("\n5. Testing after method:");
-        if(d3.after(d1))
+        if(d3.after(d2))
             System.out.println("\td3 is after d1");
         else
             System.out.println("\td3 isn't after d1");
         System.out.println("\n6. Testing difference method:");
         System.out.println("\tThe difference in days between dates d2 and d3 is : "+d2.difference(d3));
         System.out.println("\n7. Testing tomorrow method:");
-        Date d6=new Date(6,11,2016);
+        Date d6=new Date(29,2,2016);
         System.out.println("\t" + d6+" tomorrow is : "+d6.tomorrow());
         Date d7=new Date(31,12,2019);
         System.out.println("\t" + d7+" tomorrow is : "+d7.tomorrow());

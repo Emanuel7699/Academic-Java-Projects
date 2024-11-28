@@ -13,7 +13,11 @@ public class Weight {
     private final int MIN_GRAMS = 0;
     private final int MAX_GRAMS = 999;
 
-
+    /**
+     *
+     * @param kilos
+     * @param grams
+     */
     public Weight(int kilos, int grams){
         if (kilos < MIN_KILOS){
             _kilos = MIN_KILOS;
@@ -21,7 +25,7 @@ public class Weight {
         else {
             _kilos = kilos;
         }
-        if (grams < MIN_GRAMS){
+        if (grams < MIN_GRAMS || grams > MAX_GRAMS){
             _grams = MIN_GRAMS;
         }
         else{
@@ -29,12 +33,20 @@ public class Weight {
         }
     }
 
+    /**
+     *
+     * @param other
+     */
     public Weight (Weight other){
         this(other._kilos, other._grams);
     }
 
+    /**
+     *
+     * @param totalGrams
+     */
     public Weight(int totalGrams){
-        if(totalGrams%1000 < MIN_GRAMS || totalGrams%1000 > MAX_GRAMS){
+        if((totalGrams%1000 < MIN_GRAMS) || (totalGrams%1000 == MIN_GRAMS && totalGrams/1000 == MIN_GRAMS)){
             _kilos = MIN_KILOS;
             _grams = MIN_GRAMS;
         }
@@ -44,48 +56,86 @@ public class Weight {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public int getKilos(){
         return _kilos;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getGrams(){
         return _grams;
     }
 
+    /**
+     *
+     * @param other
+     * @return
+     */
     public boolean equals (Weight other){
-        return (_kilos == other._kilos && _grams == other._grams);
+        return (other._kilos == _kilos && other._grams == _grams);
     }
 
+    /**
+     *
+     * @param other
+     * @return
+     */
     public boolean lighter (Weight other){
         return ((_kilos < other._kilos) || ((_kilos == other._kilos) && (_grams < other._grams)));
     }
 
+    /**
+     *
+     * @param other
+     * @return
+     */
     public boolean heavier (Weight other) {
-        return (!(this.lighter(other)) && !(this.equals(other)));
+        return (!(this.lighter(other)) && other.lighter(this));
     }
 
+    /**
+     *
+     * @return
+     */
     public String toString() {
-        if ((_grams % 10 != 0) && (_grams / 100 == 0) && (_grams / 10 % 10 == 0)) {
-            return (_kilos + ".00" + _grams);
+        if (_grams % 10 != 0){
+            if(_grams / 100 != 0){
+                return (_kilos + "." + _grams);//101,111
+            }
+            else if(_grams / 10 % 10 == 0){
+                    return (_kilos + ".00" + _grams);//001
+            }
+            return (_kilos + ".0" + _grams);//011
         }
-        else if ((_grams%10 != 0) && (_grams / 100 == 0)) {
-            return (_kilos + ".0" + _grams);
+        else{
+            if (_grams / 100 == 0 && _grams / 10 % 10 != 0){
+                return (_kilos + ".0" + _grams / 10);//010
+            }
+            else if(_grams / 10 % 10 != 0){
+                return (_kilos + "." + _grams / 10);//110
+            }
         }
-        else if ((_grams%10 == 0) && (_grams / 100 == 0) && (_grams / 10 % 10 != 0)) {
-            return (_kilos + ".0" + _grams / 10);
-        }
-        else if ((_grams % 10 == 0) && (_grams / 100 == 0)) {
-            return (_kilos + "." + MIN_GRAMS);
-        }
-        return (_kilos + "." + _grams / 10);
+        return (_kilos + "." + _grams / 100);//100,000
     }
 
+    /**
+     *
+     * @param grams
+     * @return
+     */
     public Weight add (int grams){
-        if(((_kilos*1000 + _grams + grams)/1000) > MIN_KILOS){
-            _kilos = ((_kilos*1000 + _grams + grams)/1000);
-            _grams = ((_kilos*1000 + _grams + grams)%1000);
+        int newGrams = _grams, newKilos = _kilos;
+        if(((_kilos*1000 + _grams + grams)/1000) >= MIN_KILOS){
+            newKilos = ((_kilos*1000 + _grams + grams)/1000);
+            newGrams = ((_kilos*1000 + _grams + grams)%1000);
         }
-        return this;
+        return new Weight(newKilos, newGrams);
     }
 }
 

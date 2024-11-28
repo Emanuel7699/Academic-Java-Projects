@@ -26,7 +26,7 @@ public class Date {
      */
     public Date(int day, int month, int year) {
 
-        if ((day >= MIN_DAY && day <= maxDay(day, month)) && (month >= MIN_MONTH && month <= MAX_MONTH) && (year >= MIN_YEAR && year <= MAX_YEAR)) {
+        if ((day >= MIN_DAY && day <= maxDay(month, year)) && (month >= MIN_MONTH && month <= MAX_MONTH) && (year >= MIN_YEAR && year <= MAX_YEAR)) {
             _day = day;
             _month = month;
             _year = year;
@@ -45,35 +45,12 @@ public class Date {
 
     /** Date constructor- Copy constructor.
      *
-     * @param other Other date.
+     * @param other Other date to be copied.
      */
     public Date(Date other) {
         this(other._day, other._month, other._year);
     }
 
-
-    /** Check what is the maximum day of each month.
-     *
-     * @param month The month in the year (1-12).
-     * @param year The year (4 digits).
-     * @return The maximum day of each month.
-     */
-    private int maxDay(int month, int year) {
-        switch (month) {
-            case 4,6,9,11: return 30; // April, June, September, November
-            case 2: return isLeapYear(year); // February with leap year check
-            default: return 31; // All other months
-        }
-    }
-
-    /** checks if the year is a leap year in order to set the maximum day of february.
-     *
-     * @param y The year (4 digits).
-     * @return The maximum day of february.
-     */
-    private int isLeapYear(int y) {
-        return (y % 4 == 0 && y % 100 != 0) || (y % 400 == 0) ? 29 : 28;
-    }
 
     /** Gets the day.
      *
@@ -99,21 +76,30 @@ public class Date {
         return _year;
     }
 
-
+    /** Sets the day (only if date remains valid)
+     *
+     * @param dayToSet The new day value.
+     */
     public void setDay(int dayToSet) {
         if (dayToSet >= MIN_DAY && dayToSet <= maxDay(_month, _year)) {
             _day = dayToSet;
         }
     }
 
-
+    /** Sets the month (only if date remains valid)
+     *
+     * @param monthToSet The new month value.
+     */
     public void setMonth(int monthToSet) {
         if (monthToSet >= MIN_MONTH && monthToSet <= MAX_MONTH && _day <= maxDay(monthToSet, _year)) {
                 _month = monthToSet;
         }
     }
 
-
+    /** Sets the year (only if date remains valid)
+     *
+     * @param yearToSet The new year value.
+     */
     public void setYear(int yearToSet) {
         if (yearToSet >= MIN_YEAR && yearToSet <= MAX_YEAR && _day <= maxDay(_month, yearToSet)){
                 _year = yearToSet;
@@ -126,7 +112,7 @@ public class Date {
      * @return True if the dates are the same.
      */
     public boolean equals(Date other) {
-        return ((_day == other._day) && (_month == other._month) && (_year == other._year));
+        return ((other._day == _day) && (other._month == _month) && (other._year == _year));
     }
 
     /** Checks if this date comes before another date
@@ -144,7 +130,7 @@ public class Date {
      * @return True if this date is after the other date.
      */
     public boolean after(Date other) {
-        return (!(this.before(other)) && !(this.equals(other)));
+        return (!(this.before(other)) && other.before(this));
     }
 
     /** Calculates the difference in days between two dates
@@ -154,22 +140,6 @@ public class Date {
      */
     public int difference(Date other) {
         return Math.abs(calculateDate(_day, _month, _year) - calculateDate(other._day, other._month, other._year));
-    }
-
-
-    /** Computes the day number since the beginning of the Christian counting of years.
-     *
-     * @param day the day in the month (1-31)
-     * @param month The month in the year (1-12).
-     * @param year The year (4 digits).
-     * @return The day number since the beginning of the Christian counting of years.
-     */
-    private int calculateDate(int day, int month, int year) {
-        if (month < 3) {
-            year--;
-            month = month + 12;
-        }
-        return 365 * year + year / 4 - year / 100 + year / 400 + ((month + 1) * 306) / 10 + (day - 62);
     }
 
     /** Returns a String that represents this date.
@@ -187,10 +157,13 @@ public class Date {
         return _day + "/" + _month + "/" + _year;
     }
 
-
+    /**Calculate the date of tomorrow
+     *
+     * @return the date of tomorrow
+     */
     public Date tomorrow() {
         int newDay = _day, newMonth = _month, newYear = _year;
-        if (_day < maxDay(_day, _month)) {
+        if (_day < maxDay(_month, _year)) {
             newDay += 1;
         } else if (_month < MAX_MONTH) {
             newMonth += 1;
@@ -202,4 +175,43 @@ public class Date {
         }
         return new Date(newDay,newMonth, newYear);
     }
+
+    /** Check what is the maximum day of each month.
+     *
+     * @param month The month in the year (1-12).
+     * @param year The year (4 digits).
+     * @return The maximum day of each month.
+     */
+    private int maxDay(int month, int year) {
+        switch (month) {
+            case 4,6,9,11: return 30; // April, June, September, November
+            case 2: return isLeapYear(year); // February with leap year check
+            default: return 31; // All other months
+        }
+    }
+
+    /** checks if the year is a leap year in order to set the maximum day of february.
+     *
+     * @param y The year (4 digits).
+     * @return The maximum day of february.
+     */
+    private int isLeapYear(int y) {
+        return (y % 4 == 0 && y % 100 != 0) || (y % 400 == 0) ? 29 : 28;
+    }
+
+    /** Computes the day number since the beginning of the Christian counting of years.
+     *
+     * @param day the day in the month (1-31)
+     * @param month The month in the year (1-12).
+     * @param year The year (4 digits).
+     * @return The day number since the beginning of the Christian counting of years.
+     */
+    private int calculateDate(int day, int month, int year) {
+        if (month < 3) {
+            year--;
+            month = month + 12;
+        }
+        return 365 * year + year / 4 - year / 100 + year / 400 + ((month + 1) * 306) / 10 + (day - 62);
+    }
+
 }
