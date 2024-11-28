@@ -1,5 +1,5 @@
-/** public class Date extends Object.
- * This class represents a Date object.
+/** public class Weight extends Object.
+ * This class represents a Weight object.
  *
  * @author Emanuel Abraham
  * @version 27/11/2024 (2025a)
@@ -13,10 +13,11 @@ public class Weight {
     private final int MIN_GRAMS = 0;
     private final int MAX_GRAMS = 999;
 
-    /**
+    /** Weight constructor - If the given weight is valid - creates a new Weight object,
+     *  otherwise if one of the parameters in not valid initialize it to 1.
      *
-     * @param kilos
-     * @param grams
+     * @param kilos The number of kilos in Weight (greater or equal to 1).
+     * @param grams The number of grams in Weight (0-999).
      */
     public Weight(int kilos, int grams){
         if (kilos < MIN_KILOS){
@@ -33,17 +34,17 @@ public class Weight {
         }
     }
 
-    /**
+    /** Copy constructor.
      *
-     * @param other
+     * @param other The weight to be copied.
      */
     public Weight (Weight other){
         this(other._kilos, other._grams);
     }
 
-    /**
+    /** Constructor with only one parameter.
      *
-     * @param totalGrams
+     * @param totalGrams The total number of grams.
      */
     public Weight(int totalGrams){
         if((totalGrams%1000 < MIN_GRAMS) || (totalGrams%1000 == MIN_GRAMS && totalGrams/1000 == MIN_GRAMS)){
@@ -56,52 +57,52 @@ public class Weight {
         }
     }
 
-    /**
+    /** Gets the kilos.
      *
-     * @return
+     * @return The number of kilos for this weight.
      */
     public int getKilos(){
         return _kilos;
     }
 
-    /**
+    /** Gets the grams.
      *
-     * @return
+     * @return The number of grams for this weight.
      */
     public int getGrams(){
         return _grams;
     }
 
-    /**
+    /** Checks if two weights are the same.
      *
-     * @param other
-     * @return
+     * @param other The weight to compare this weight to.
+     * @return True if the weights are the same.
      */
     public boolean equals (Weight other){
         return (other._kilos == _kilos && other._grams == _grams);
     }
 
-    /**
+    /** Checks if this weight is lighter than another weight.
      *
-     * @param other
-     * @return
+     * @param other Weight to compare this weight to.
+     * @return True if this weight is lighter than the other weight.
      */
     public boolean lighter (Weight other){
         return ((_kilos < other._kilos) || ((_kilos == other._kilos) && (_grams < other._grams)));
     }
 
-    /**
+    /** Checks if this weight is heavier than another weight.
      *
-     * @param other
-     * @return
+     * @param other Weight to compare this weight to.
+     * @return True if this weight is heavier than the other weight.
      */
     public boolean heavier (Weight other) {
         return (!(this.lighter(other)) && other.lighter(this));
     }
 
-    /**
+    /** Returns a String that represents this weight.
      *
-     * @return
+     * @return A String that represents this weight in the following format: kiols.grmas(3 digits) for example: 4.07 or 3.055 or 4.005
      */
     public String toString() {
         if (_grams % 10 != 0){
@@ -124,10 +125,10 @@ public class Weight {
         return (_kilos + "." + _grams / 100);//100,000
     }
 
-    /**
+    /** Return a new weight with the additional grams given as parameter.
      *
-     * @param grams
-     * @return
+     * @param grams The additional grams to add to the new returned weight.
+     * @return A new weight with the additional grams given as parameter.
      */
     public Weight add (int grams){
         int newGrams = _grams, newKilos = _kilos;
