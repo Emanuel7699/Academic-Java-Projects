@@ -10,12 +10,21 @@ public class Date {
     private int _month;
     private int _year;
 
-    private static final int MIN_DAY = 1;
-    private static final int MIN_MONTH = 1;
-    private final int MIN_YEAR = 1000;
-    private final int MAX_MONTH = 12;
-    private final int MAX_YEAR = 9999;
-    private static final int THIS_year = 2024;
+    private static final byte MIN_DAY = 1;
+    private static final byte MIN_MONTH = 1;
+    private final short MIN_YEAR = 1000;
+    private final byte MAX_MONTH = 12;
+    private final short MAX_YEAR = 9999;
+    private static final short THIS_year = 2024;
+    private final byte TEN_IN_MATH = 10;
+    private final byte ONE_IN_MATH = 1;
+    private final byte APRIL = 4;
+    private final byte JUNE = 6;
+    private final byte SEPTEMBER = 9;
+    private final byte NOVEMBER = 11;
+    private final byte FEBRUARY = 2;
+    private final byte MAX_MONTH_DAY = 31;
+    private final byte REGULAR_MONTH_DAY = 30;
 
 
     /** Date constructor - If the given date is valid - creates a new Date object, otherwise creates the date 01/01/2024.
@@ -147,11 +156,11 @@ public class Date {
      * @return A String that represents this date in the following format: day (2 digits) / month(2 digits) / year (4 digits) for example: 02/03/1998.
      */
     public String toString() {
-        if (_day < 10 && _month < 10) {
+        if (_day < TEN_IN_MATH && _month < TEN_IN_MATH) {
             return "0" + _day + "/0" + _month + "/" + _year;
-        } else if (_day < 10) {
+        } else if (_day < TEN_IN_MATH) {
             return "0" + _day + "/" + _month + "/" + _year;
-        } else if (_month < 10) {
+        } else if (_month < TEN_IN_MATH) {
             return _day + "/0" + _month + "/" + _year;
         }
         return _day + "/" + _month + "/" + _year;
@@ -164,12 +173,12 @@ public class Date {
     public Date tomorrow() {
         int newDay = _day, newMonth = _month, newYear = _year;
         if (_day < maxDay(_month, _year)) {
-            newDay += 1;
+            newDay += ONE_IN_MATH;
         } else if (_month < MAX_MONTH) {
-            newMonth += 1;
+            newMonth += ONE_IN_MATH;
             newDay = MIN_DAY;
         } else {
-            newYear += 1;
+            newYear += ONE_IN_MATH;
             newMonth = MIN_MONTH;
             newDay = MIN_DAY;
         }
@@ -184,9 +193,9 @@ public class Date {
      */
     private int maxDay(int month, int year) {
         switch (month) {
-            case 4,6,9,11: return 30; // April, June, September, November
-            case 2: return isLeapYear(year); // February with leap year check
-            default: return 31; // All other months
+            case APRIL,JUNE,SEPTEMBER,NOVEMBER: return REGULAR_MONTH_DAY; // April, June, September, November
+            case FEBRUARY: return isLeapYear(year); // February with leap year check
+            default: return MAX_MONTH_DAY; // All other months
         }
     }
 
