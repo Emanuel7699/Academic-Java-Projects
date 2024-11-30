@@ -102,6 +102,7 @@ public class Weight {
 
     /** Returns a String that represents this weight.
      *
+     * @Overrides toString in class Object.
      * @return A String that represents this weight in the following format: kiols.grmas(3 digits) for example: 4.07 or 3.055 or 4.005
      */
     public String toString() {

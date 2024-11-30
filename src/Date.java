@@ -153,6 +153,7 @@ public class Date {
 
     /** Returns a String that represents this date.
      *
+     * @Overrides toString in class Object.
      * @return A String that represents this date in the following format: day (2 digits) / month(2 digits) / year (4 digits) for example: 02/03/1998.
      */
     public String toString() {
