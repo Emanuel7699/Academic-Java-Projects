@@ -15,6 +15,25 @@ public class Baby {
 
     private final byte LENGTH_ID = 9;
     private final String DEFAULT_ID = "000000000";
+    private static final short THOUSAND = 1000;
+    private final byte STARTING_DAYS = 0;
+    private final byte ONE_WEEK = 7;
+    private final byte FIRST_DAY_OF_SECOND_WEEK = 8;
+    private final byte TWO_MONTHS = 60;
+    private final byte FIRST_DAY_OF_THIRD_MONTH = 61;
+    private final byte FOUR_MONTHS = 120;
+    private final byte FIRST_DAY_OF_FIFTH_MONTHS = 121;
+    private final short EIGHT_MONTHS = 240;
+    private final short FIRST_DAY_OF_NINE_MONTH = 241;
+    private final short YEAR = 365;
+    private final byte GRAMS_30 = 30;
+    private final byte GRAMS_25 = 25;
+    private final byte GRAMS_16 = 16;
+    private final byte GRAMS_8 = 8;
+    private final byte PERCENT = 10;
+    private final short PART_OF_PERCENT_AND_WEEK = 700;
+    private final byte MIN_KILOS = 1;
+    private final byte MAX_DAYS = 1;
 
     /** Baby constructor - If the given id and birthWeightInGrams are valid - creates a new Baby object with the parameters,
      * otherwise, if the id is not valid creates the Baby with id = "000000000" and all other parameters.
@@ -52,7 +71,7 @@ public class Baby {
                 other._dateOfBirth.getDay(),
                 other._dateOfBirth.getMonth(),
                 other._dateOfBirth.getYear(),
-                other._birthWeight.getKilos() * 1000 + other._birthWeight.getGrams());
+                other._birthWeight.getKilos() * THOUSAND + other._birthWeight.getGrams());
     }
 
     /** Gets the first name.
@@ -108,7 +127,7 @@ public class Baby {
      * @param weightToSet The new current weight.
      */
     public void setCurrentWeight(Weight weightToSet) {
-        if (weightToSet.getKilos() >= 1) {
+        if (weightToSet.getKilos() >= MIN_KILOS) {
             _currentWeight = new Weight(weightToSet);
         }
     }
@@ -128,7 +147,12 @@ public class Baby {
      * @return True if the babies are the same
      */
     public boolean equals(Baby other) {
-        return (other._firstName == _firstName && other._lastName == _lastName && other._id == _id && other._dateOfBirth.getDay() == _dateOfBirth.getDay() && other._dateOfBirth.getMonth() == _dateOfBirth.getMonth() && other._dateOfBirth.getYear() == _dateOfBirth.getYear());
+        return (other._firstName == _firstName &&
+                other._lastName == _lastName &&
+                other._id == _id &&
+                other._dateOfBirth.getDay() == _dateOfBirth.getDay() &&
+                other._dateOfBirth.getMonth() == _dateOfBirth.getMonth() &&
+                other._dateOfBirth.getYear() == _dateOfBirth.getYear());
     }
 
     /** Checks if two babies are twins.
@@ -140,7 +164,7 @@ public class Baby {
         return (_lastName.equals(other._lastName) &&
                 !_firstName.equals(other._firstName) &&
                 !_id.equals(other._id) &&
-                (_dateOfBirth.difference(other._dateOfBirth) <= 1));
+                (_dateOfBirth.difference(other._dateOfBirth) <= MAX_DAYS));
     }
 
     /** Checks if the weight of this baby is heavier than the weight of another baby.
@@ -177,22 +201,22 @@ public class Baby {
      * 3- If the progress is correct according to the rules.
      */
     public int isWeightInValidRange(int numOfDays) {
-        int dailyGrams = (10 * (_birthWeight.getKilos() * 1000 + _birthWeight.getGrams()) / 700);
-        int baseWeight = dailyGrams * 7;
-        int weightUntil60 = baseWeight + 30 * 53;
-        int weightUntil120 = weightUntil60 + 25 * 60;
-        int weightUntil240 = weightUntil120 + 16 * 120;
+        int dailyGrams = (PERCENT * (_birthWeight.getKilos() * THOUSAND + _birthWeight.getGrams()) / PART_OF_PERCENT_AND_WEEK);
+        int baseWeight = dailyGrams * ONE_WEEK;
+        int weightUntil60 = baseWeight + GRAMS_30 * (TWO_MONTHS - ONE_WEEK);
+        int weightUntil120 = weightUntil60 + GRAMS_25 * TWO_MONTHS;
+        int weightUntil240 = weightUntil120 + GRAMS_16 * FOUR_MONTHS;
 
-        if (numOfDays >= 0 && numOfDays <= 7) {
+        if (numOfDays >= STARTING_DAYS && numOfDays <= ONE_WEEK) {
             return (_currentWeight.heavier(_birthWeight.add(dailyGrams * numOfDays))) ? 3 : 2;
-        } else if (numOfDays >= 8 && numOfDays <= 60) {
-            return (_currentWeight.heavier((_birthWeight.add(baseWeight + 30 * (numOfDays - 8))))) ? 3 : 2;
-        } else if (numOfDays >= 61 && numOfDays <= 120) {
-            return (_currentWeight.heavier((_birthWeight.add(weightUntil60 + 25 * (numOfDays - 60))))) ? 3 : 2;
-        } else if (numOfDays >= 121 && numOfDays <= 240) {
-            return (_currentWeight.heavier((_birthWeight.add(weightUntil120 + 16 * (numOfDays - 120))))) ? 3 : 2;
-        } else if (numOfDays >= 241 && numOfDays <= 365) {
-            return (_currentWeight.heavier((_birthWeight.add(weightUntil240 + 8 * (numOfDays - 240))))) ? 3 : 2;
+        } else if (numOfDays >= FIRST_DAY_OF_SECOND_WEEK && numOfDays <= TWO_MONTHS) {
+            return (_currentWeight.heavier((_birthWeight.add(baseWeight + GRAMS_30 * (numOfDays - ONE_WEEK))))) ? 3 : 2;
+        } else if (numOfDays >= FIRST_DAY_OF_THIRD_MONTH && numOfDays <= FOUR_MONTHS) {
+            return (_currentWeight.heavier((_birthWeight.add(weightUntil60 + GRAMS_25 * (numOfDays - TWO_MONTHS))))) ? 3 : 2;
+        } else if (numOfDays >= FIRST_DAY_OF_FIFTH_MONTHS && numOfDays <= EIGHT_MONTHS) {
+            return (_currentWeight.heavier((_birthWeight.add(weightUntil120 + GRAMS_16 * (numOfDays - FOUR_MONTHS))))) ? 3 : 2;
+        } else if (numOfDays >= FIRST_DAY_OF_NINE_MONTH && numOfDays <= YEAR) {
+            return (_currentWeight.heavier((_birthWeight.add(weightUntil240 + GRAMS_8 * (numOfDays - EIGHT_MONTHS))))) ? 3 : 2;
         } else {
             return 1;
         }
