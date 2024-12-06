@@ -16,6 +16,7 @@ public class Baby {
     private final byte LENGTH_ID = 9;
     private final String DEFAULT_ID = "000000000";
     private static final short THOUSAND = 1000;
+    private final byte HUNDRED = 100;
     private final byte STARTING_DAYS = 0;
     private final byte ONE_WEEK = 7;
     private final byte FIRST_DAY_OF_SECOND_WEEK = 8;
@@ -31,7 +32,7 @@ public class Baby {
     private final byte GRAMS_16 = 16;
     private final byte GRAMS_8 = 8;
     private final byte PERCENT = 10;
-    private final short PART_OF_PERCENT_AND_WEEK = 700;
+    private final double MAX_PERCENT = 0.1;
     private final byte MIN_KILOS = 1;
     private final byte MAX_DAYS = 1;
 
@@ -201,22 +202,22 @@ public class Baby {
      * 3- If the progress is correct according to the rules.
      */
     public int isWeightInValidRange(int numOfDays) {
-        int dailyGrams = (PERCENT * (_birthWeight.getKilos() * THOUSAND + _birthWeight.getGrams()) / PART_OF_PERCENT_AND_WEEK);
-        int baseWeight = dailyGrams * ONE_WEEK;
+        double dailyGrams = -(MAX_PERCENT/ONE_WEEK*numOfDays) * (_birthWeight.getKilos() * THOUSAND + _birthWeight.getGrams());
+        int baseWeight = -(PERCENT * (_birthWeight.getKilos() * THOUSAND + _birthWeight.getGrams()) / HUNDRED);
         int weightUntil60 = baseWeight + GRAMS_30 * (TWO_MONTHS - ONE_WEEK);
         int weightUntil120 = weightUntil60 + GRAMS_25 * TWO_MONTHS;
         int weightUntil240 = weightUntil120 + GRAMS_16 * FOUR_MONTHS;
 
-        if (numOfDays >= STARTING_DAYS && numOfDays <= ONE_WEEK) {
-            return (_currentWeight.heavier(_birthWeight.add(dailyGrams * numOfDays))) ? 3 : 2;
+        if (numOfDays > STARTING_DAYS && numOfDays <= ONE_WEEK) {
+            return (_birthWeight.add((int) dailyGrams).heavier(_currentWeight)) ? 2 : 3;
         } else if (numOfDays >= FIRST_DAY_OF_SECOND_WEEK && numOfDays <= TWO_MONTHS) {
-            return (_currentWeight.heavier((_birthWeight.add(baseWeight + GRAMS_30 * (numOfDays - ONE_WEEK))))) ? 3 : 2;
+            return (_birthWeight.add(baseWeight + GRAMS_30 * (numOfDays - ONE_WEEK)).heavier(_currentWeight)) ? 2 : 3;
         } else if (numOfDays >= FIRST_DAY_OF_THIRD_MONTH && numOfDays <= FOUR_MONTHS) {
-            return (_currentWeight.heavier((_birthWeight.add(weightUntil60 + GRAMS_25 * (numOfDays - TWO_MONTHS))))) ? 3 : 2;
+            return (_birthWeight.add(weightUntil60 + GRAMS_25 * (numOfDays - TWO_MONTHS)).heavier(_currentWeight)) ? 2 : 3;
         } else if (numOfDays >= FIRST_DAY_OF_FIFTH_MONTHS && numOfDays <= EIGHT_MONTHS) {
-            return (_currentWeight.heavier((_birthWeight.add(weightUntil120 + GRAMS_16 * (numOfDays - FOUR_MONTHS))))) ? 3 : 2;
+            return (_birthWeight.add(weightUntil120 + GRAMS_16 * (numOfDays - FOUR_MONTHS)).heavier(_currentWeight)) ? 2 : 3;
         } else if (numOfDays >= FIRST_DAY_OF_NINE_MONTH && numOfDays <= YEAR) {
-            return (_currentWeight.heavier((_birthWeight.add(weightUntil240 + GRAMS_8 * (numOfDays - EIGHT_MONTHS))))) ? 3 : 2;
+            return (_birthWeight.add(weightUntil240 + GRAMS_8 * (numOfDays - EIGHT_MONTHS)).heavier(_currentWeight)) ? 2 : 3;
         } else {
             return 1;
         }
