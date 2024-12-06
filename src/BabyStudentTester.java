@@ -12,7 +12,7 @@ public class BabyStudentTester
 
         //=====================================================================
         System.out.println("\n\n2. Testing accessors and mutators:");
-        Weight w1 = new Weight(2700);
+        Weight w1 = new Weight(16000);
         b1.setCurrentWeight(w1);
         System.out.println("\nbaby b1 is:\n"+b1);
         System.out.println("\nfirst name of b1:"+b1.getFirstName());
@@ -60,7 +60,7 @@ public class BabyStudentTester
         //=====================================================================
         System.out.println("\n8. Testing isWeightInValidRange method:");
         System.out.println("\tThe result of weight in valid of a baby that was born in: " +b1.getDateOfBirth());
-        System.out.println("\tand his weight when he was born was: " + b1.getBirthWeight() + " and now after 183 days, his weight is " + b1.getCurrentWeight() + " is : "+ b1.isWeightInValidRange(7));
+        System.out.println("\tand his weight when he was born was: " + b1.getBirthWeight() + " and now after 183 days, his weight is " + b1.getCurrentWeight() + " is : "+ b1.isWeightInValidRange(365));
 
         System.out.println("\n\tThe result of weight in valid of a baby that was born in: " +b1.getDateOfBirth());
         System.out.println("\tand his weight when he was born was: " + b1.getBirthWeight() + " and now after 30 days, his weight is " + b1.getCurrentWeight() + " is : "+ b1.isWeightInValidRange(30));

@@ -202,13 +202,13 @@ public class Baby {
      * 3- If the progress is correct according to the rules.
      */
     public int isWeightInValidRange(int numOfDays) {
-        double dailyGrams = -(MAX_PERCENT/ONE_WEEK*numOfDays) * (_birthWeight.getKilos() * THOUSAND + _birthWeight.getGrams());
         int baseWeight = -(PERCENT * (_birthWeight.getKilos() * THOUSAND + _birthWeight.getGrams()) / HUNDRED);
         int weightUntil60 = baseWeight + GRAMS_30 * (TWO_MONTHS - ONE_WEEK);
         int weightUntil120 = weightUntil60 + GRAMS_25 * TWO_MONTHS;
         int weightUntil240 = weightUntil120 + GRAMS_16 * FOUR_MONTHS;
 
         if (numOfDays > STARTING_DAYS && numOfDays <= ONE_WEEK) {
+            double dailyGrams = -(MAX_PERCENT/ONE_WEEK*numOfDays) * (_birthWeight.getKilos() * THOUSAND + _birthWeight.getGrams());
             return (_birthWeight.add((int) dailyGrams).heavier(_currentWeight)) ? 2 : 3;
         } else if (numOfDays >= FIRST_DAY_OF_SECOND_WEEK && numOfDays <= TWO_MONTHS) {
             return (_birthWeight.add(baseWeight + GRAMS_30 * (numOfDays - ONE_WEEK)).heavier(_currentWeight)) ? 2 : 3;
