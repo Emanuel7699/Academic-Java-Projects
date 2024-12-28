@@ -31,4 +31,34 @@ public class Ex13 {
         }
         return x;
     }
+
+    public static int longestNearlyPal (int[] arr) {
+        int i=0,x=0,t=1,n=0;
+        if (0 == (arr.length-1-x)){
+           return n;
+        }
+        if (i == (arr.length-1-x)){
+           x++;
+           i = 0;
+        }
+       if (arr[i] != arr[arr.length-1-x]){
+           if (t==0){
+               n++;
+               i++;
+               t = 1;
+           }
+           else{
+               n = 0;
+               i++;
+           }
+           return longestNearlyPal (arr);
+        }
+       else {
+           n++;
+           i++;
+           x++;
+           t = 0;
+           return longestNearlyPal (arr);
+       }
+    }
 }

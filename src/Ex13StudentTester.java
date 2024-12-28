@@ -83,8 +83,8 @@ public class Ex13StudentTester
         System.out.println ("********** Question 3 **********\n");
         int[] array = {1, 1, 4, 10, 10, 4, 3, 10, 10};
         System.out.println("Checking method 'longestNearlyPal' on array " + toString(array));
-        //int studentResult3 = Ex13.longestNearlyPal(array);
-        //System.out.println("Result is: "+studentResult3);
+        int studentResult3 = Ex13.longestNearlyPal(array);
+        System.out.println("Result is: "+studentResult3);
         System.out.println();
 
         System.out.println ("********** Question 4 **********\n");
