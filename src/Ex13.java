@@ -1,30 +1,29 @@
 public class Ex13 {
-    public static int[] specialArr (int[] arr, int med){
-        int x=0, y=1;
+    public static int[] specialArr(int[] arr, int med) {
+        int x = 0, y = 1;
         int[] arr1 = new int[arr.length];
-        for(int i=0;i < arr1.length;i++){
-         if (arr[i]>=med){
-             arr1[x] = arr[i];
-             x+=2;
-         }
-         else{
-             arr1[y] = arr[i];
-             y+=2;
-         }
+        for (int i = 0; i < arr1.length; i++) {
+            if (arr[i] >= med) {
+                arr1[x] = arr[i];
+                x += 2;
+            } else {
+                arr1[y] = arr[i];
+                y += 2;
+            }
         }
         return arr1;
     }
 
-    public static int first (int [] arr) {
+    public static int first(int[] arr) {
         int x = 1, i, t;
-        for(i = 0;i < arr.length;i++) {
-            if ((arr[i] != i+1) && (arr[i] <= arr.length) && (arr[i] > 0)) {
-                t = arr[arr[i]-1];
-                arr[arr[i]-1] = arr[i];
+        for (i = 0; i < arr.length; i++) {
+            if ((arr[i] != i + 1) && (arr[i] <= arr.length) && (arr[i] > 0)) {
+                t = arr[arr[i] - 1];
+                arr[arr[i] - 1] = arr[i];
                 arr[i] = t;
             }
         }
-        for(i = 0;i < arr.length;i++) {
+        for (i = 0; i < arr.length; i++) {
             if (arr[i] == x) {
                 x += 1;
             }
@@ -32,33 +31,34 @@ public class Ex13 {
         return x;
     }
 
-    public static int longestNearlyPal (int[] arr) {
-        int i=0,x=0,t=1,n=0;
-        if (0 == (arr.length-1-x)){
-           return n;
+
+    public static int longestNearlyPal(int[] arr) {
+        return longestNearlyPal(arr, arr.length-1, 0, 0, 0);
+    }
+
+    private static int longestNearlyPal(int[] arr, int right, int left, int counter, int maxCount) {
+        if (right == 0){
+            return maxCount;
         }
-        if (i == (arr.length-1-x)){
-           x++;
-           i = 0;
+        if(left == right) {
+            return longestNearlyPal(arr, right-1, 0, 0, Math.max(counter, maxCount));
         }
-       if (arr[i] != arr[arr.length-1-x]){
-           if (t==0){
-               n++;
-               i++;
-               t = 1;
-           }
-           else{
-               n = 0;
-               i++;
-           }
-           return longestNearlyPal (arr);
+        if ((arr[left] == arr[right]) && almostPalindrom(arr, right, left, 0)){
+            counter = right-left+1;
         }
-       else {
-           n++;
-           i++;
-           x++;
-           t = 0;
-           return longestNearlyPal (arr);
-       }
+        return longestNearlyPal(arr, right, left + 1, 0, Math.max(counter, maxCount));
+    }
+
+    private static boolean almostPalindrom(int[] arr, int right, int left, int flag) {
+        if (left >= right) {
+            return true;
+        }
+        if (arr[left] != arr[right]) {
+            if (flag == 1) {
+                return false;
+            }
+            return almostPalindrom(arr, right - 1, left, 1) || almostPalindrom(arr, right, left + 1, 1);
+        }
+        return almostPalindrom(arr, right - 1, left + 1, flag);
     }
 }

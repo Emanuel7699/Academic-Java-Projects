@@ -87,6 +87,34 @@ public class Ex13StudentTester
         System.out.println("Result is: "+studentResult3);
         System.out.println();
 
+        System.out.println ("********** Question 3 **********\n");
+        int[] array1 = {4, 6, 5, 1, 2, 8, 12, 1, 1, 12, 10, 2, 1, 4, 8};
+        System.out.println("Checking method 'longestNearlyPal' on array " + toString(array1));
+        int studentResult4 = Ex13.longestNearlyPal(array1);
+        System.out.println("Result is: "+studentResult4);
+        System.out.println();
+
+        System.out.println ("********** Question 3 **********\n");
+        int[] array2 = {1, 2, 1, 2, 1, 2, 1, 2, 2, 1, 2, 1, 2, 1, 2, 1, 0};
+        System.out.println("Checking method 'longestNearlyPal' on array " + toString(array2));
+        int studentResult5 = Ex13.longestNearlyPal(array2);
+        System.out.println("Result is: "+studentResult5);
+        System.out.println();
+
+        System.out.println ("********** Question 3 **********\n");
+        int[] array3 = {4, 6, 5, 1, 1, 2, 12, 1, 1, 12, 10, 2, 1, 4, 8};
+        System.out.println("Checking method 'longestNearlyPal' on array " + toString(array3));
+        int studentResult6 = Ex13.longestNearlyPal(array3);
+        System.out.println("Result is: "+studentResult6);
+        System.out.println();
+
+        System.out.println ("********** Question 3 **********\n");
+        int[] array4 = {1, 3, 2, 3, 1, 4};
+        System.out.println("Checking method 'longestNearlyPal' on array " + toString(array4));
+        int studentResult7 = Ex13.longestNearlyPal(array4);
+        System.out.println("Result is: "+studentResult7);
+        System.out.println();
+
         System.out.println ("********** Question 4 **********\n");
 
         int[][] a={{1,2},{3,4}};
