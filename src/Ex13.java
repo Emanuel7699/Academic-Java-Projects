@@ -13,6 +13,8 @@ public class Ex13 {
      * @param med The number in the array arr that n/2 of the elements in the array
      * are smaller than and n/2 of the elements in the array are larger than.
      * @return Spetial array.
+     * Time complexity o(n)
+     * Space complexity o(n)
      */
     public static int[] specialArr(int[] arr, int med) {
         int x = 0, y = 1;
@@ -34,6 +36,8 @@ public class Ex13 {
      *
      * @param arr Unsorted array.
      * @return The smallest positive number not found in the array.
+     * Time complexity o(n)
+     * Space complexity o(1)
      */
     public static int first(int[] arr) {
         int x = 1, i, t;
