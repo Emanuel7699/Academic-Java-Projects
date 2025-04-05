@@ -121,7 +121,7 @@ public class Ex13 {
         return extreme(m,0,0,Integer.MIN_VALUE);
     }
 
-    /** Auxiliary method for calculationץ
+    /** Auxiliary method for calculation.
      *
      * @param m Matrix array.
      * @param i Row.
