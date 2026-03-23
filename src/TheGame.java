@@ -8,13 +8,13 @@ public class TheGame {
     private GuessNode head;
     private String secretNumber;
     private int attempts;
-    final int LIMIT_MAX_DIGIT = 10;
-    final int FIRST_DIGIT = 0;
-    final int LENGTH_OF_NUMBER = 4;
-    final int ERROR = -1;
-    final int WIN = 0;
-    final int PARTIAL_WIN = 1;
-    final int CORRECT = 4;
+    private final int LIMIT_MAX_DIGIT = 10;
+    private final int FIRST_DIGIT = 0;
+    private final int LENGTH_OF_NUMBER = 4;
+    private final int ERROR = -1;
+    private final int WIN = 0;
+    private final int PARTIAL_WIN = 1;
+    private final int CORRECT = 4;
 
 
     public TheGame() {
