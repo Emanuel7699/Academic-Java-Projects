@@ -20,22 +20,42 @@ public class GuessNode {
         this.next = null;
     }
 
+    /**This function returns the number of bulls in the guess.
+     *
+     * @return the number of bulls
+     */
     public int getBulls() {
         return bulls;
     }
 
+    /**This function returns the number of cows in the guess.
+     *
+     * @return the number of cows
+     */
     public int getCows() {
         return cows;
     }
 
+    /**This function returns the next node in the history list.
+     *
+     * @return the next GuessNode
+     */
     public GuessNode getNext() {
         return next;
     }
 
+    /**This function returns the guessed number string.
+     *
+     * @return the guessed number
+     */
     public String getNumber() {
         return number;
     }
 
+    /**This function sets the pointer to the next node in the history list.
+     *
+     * @param next the next GuessNode to be linked
+     */
     public void setNext(GuessNode next) {
         this.next = next;
     }
