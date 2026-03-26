@@ -30,24 +30,42 @@ public class NewYear {
         }
     }
 
-
+    /**
+     *
+     * @return
+     */
     public int getMax() {
         return this.max;
     }
 
+    /**Gets the minimum number
+     *
+     * @return the minimum number
+     */
     public int getMin() {
         return min;
     }
 
-
+    /**Gets the number array
+     *
+     * @return the number array
+     */
     public int[] getNumber() {
         return number;
     }
 
+    /** Gets the year
+     *
+     * @return the year
+     */
     public int getYear() {
         return year;
     }
 
+    /** Yet the first year
+     *
+     * @return the first year of the array
+     */
     public void setYear(int year) {
         this.year = year;
     }
