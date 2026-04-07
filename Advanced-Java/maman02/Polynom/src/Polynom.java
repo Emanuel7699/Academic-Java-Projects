@@ -5,22 +5,25 @@ public class Polynom {
     double coefficient;
     int exponent;
 
+    // Private constructor for a single term (coefficient and exponent)
     private Polynom (double coefficient, int exponent) {
         this.coefficient = coefficient;
         this.exponent = exponent;
     }
 
 
+    // Constructor - builds a polynom from arrays of coefficients and exponents
     public Polynom (double[] coefficient, int[] exponent) throws Exception {
         if (coefficient.length != exponent.length) throw new Exception("Error: Arrays must be the same length");
         this.Poly = new ArrayList<>();
         for (int i = 0; i < coefficient.length; i++){
             this.Poly.add(new Polynom(coefficient[i], exponent[i]));
         }
-        sort();
+        sort(); // Sort terms from highest to lowest exponent
     }
 
 
+    // Returns a new polynom that is the sum of this polynom and other
     public Polynom plus (Polynom other) throws Exception {
         double[] coefs = new double[this.Poly.size() + other.Poly.size()];
         int[] exps = new int[this.Poly.size() + other.Poly.size()];
@@ -47,6 +50,7 @@ public class Polynom {
         return new Polynom(coefs, exps);
     }
 
+    // Returns a new polynom that is the difference of this polynom and other
     public Polynom minus (Polynom other) throws Exception {
         double[] coefs = new double[this.Poly.size() + other.Poly.size()];
         int[] exps = new int[this.Poly.size() + other.Poly.size()];
@@ -73,6 +77,7 @@ public class Polynom {
         return new Polynom(coefs, exps);
     }
 
+    // Returns a new polynom that is the derivative of this polynom
     public Polynom derivative () throws Exception {
         double[] coefs = new double[this.Poly.size()];
         int[] exps = new int[this.Poly.size()];
@@ -83,6 +88,7 @@ public class Polynom {
         return new Polynom(coefs, exps);
     }
 
+    // Returns the polynom as a readable string
     public String toString() {
         String str = "";
         for (int i = 0; i < this.Poly.size(); i++) {
@@ -103,6 +109,7 @@ public class Polynom {
         return str;
     }
 
+    // Checks if two polynoms are equal
     public boolean equals(Object obj) {
         if (!(obj instanceof Polynom)) {return false;}
         Polynom other = (Polynom) obj;
@@ -114,6 +121,7 @@ public class Polynom {
         return true;
     }
 
+    // Sorts terms from highest to lowest exponent, combines terms with same exponent
     private void sort() {
         for (int i = 0; i < this.Poly.size()-1; i++) {
             for (int j = i + 1; j < this.Poly.size(); j++) {
