@@ -8,4 +8,4 @@ public class Launcher {
 
         Application.launch(HelloApplication.class, args);
     }
-}
+}JOptionPane.showInputDialog(null, "Please enter year: ")
